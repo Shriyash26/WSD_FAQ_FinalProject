@@ -43,7 +43,18 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->validate([
+            'body' => 'required|min:5',
+        ], [
+            'body.required' => 'Body is required',
+            'body.min' => 'Body must be at least 5 characters',
+        ]);
+        $input = request()->all();
+        $question = new Question($input);
+        $question->user()->associate(Auth::user());
+        $question->save();
+        return redirect()->route('home')->with('message', 'IT WORKS!');
+        // return redirect()->route('questions.show', ['id' => $question->id]);
     }
 
     /**
