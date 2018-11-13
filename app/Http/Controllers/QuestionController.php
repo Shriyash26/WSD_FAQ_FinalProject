@@ -30,7 +30,9 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        $question = new Question;
+        $edit = FALSE;
+        return view('questionForm', ['question' => $question,'edit' => $edit  ]);
     }
 
     /**
