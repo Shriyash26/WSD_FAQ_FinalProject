@@ -74,9 +74,10 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Question $question)
     {
-        //
+        $edit = TRUE;
+        return view('questionForm', ['question' => $question, 'edit' => $edit ]);
     }
 
     /**
@@ -86,9 +87,17 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Question $question)
     {
-        //
+        $input = $request->validate([
+            'body' => 'required|min:5',
+        ], [
+            'body.required' => 'Body is required',
+            'body.min' => 'Body must be at least 5 characters',
+        ]);
+        $question->body = $request->body;
+        $question->save();
+        return redirect()->route('question.show',['question_id' => $question->id])->with('message', 'Saved');
     }
 
     /**

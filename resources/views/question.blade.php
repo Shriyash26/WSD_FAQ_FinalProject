@@ -13,7 +13,7 @@
                     </div>
                     <div class="card-footer">
                         <a class="btn btn-primary float-right"
-                           href="#">
+                           href="{{ route('question.edit',['id'=> $question->id])}}">
                             Edit Question
                         </a>
 
@@ -24,7 +24,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header"><a class="btn btn-primary float-left"
-                                                href="#">
+                                                href="">
                             Answer Question
                         </a></div>
 
