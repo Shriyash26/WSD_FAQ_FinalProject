@@ -30,6 +30,8 @@ Route::get('/questions/{question_id}/answers/create', 'AnswerController@create')
 Route::post('/questions/{question_id}/answers/', 'AnswerController@store')->name('answer.store');
 Route::get('/questions/{question_id}/answers/{answer_id}/edit', 'AnswerController@edit')->name('answer.edit');
 Route::patch('/questions/{question_id}/answer/{answer_id}', 'AnswerController@update')->name('answer.update');
+Route::delete('/questions/{question_id}/answer/{answer_id}', 'AnswerController@destroy')->name('answer.destroy');
+
 
 
 
