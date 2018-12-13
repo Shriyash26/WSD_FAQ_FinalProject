@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VerifyMail;
 
 class LoginController extends Controller
 {
@@ -35,5 +38,14 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+    public function authenticated(Request $request, $user)
+    {
+        if (!$user->email_verified_at) {
+            auth()->logout();
+            Mail::to($user->email)->send(new VerifyMail($user));
+            return back()->with('message','You need to confirm your account. We have sent you an New verification link, please check your email.');
+        }
+        return redirect()->intended($this->redirectPath());
     }
 }
