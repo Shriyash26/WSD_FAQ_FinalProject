@@ -45,4 +45,19 @@ class UserTest extends TestCase
         ]);
         $response->assertRedirect('/home');
     }
+
+    public function testLoginFailWithInvalidCredentials()
+    {
+        $user = factory(\App\User::class)->create([
+            'password' => bcrypt('111111'),
+        ]);
+
+        $response = $this->from('/login')->post('/login', [
+            'email' => $user->email,
+            'password' => 'random',
+        ]);
+
+        $response->assertSessionHasErrors('email');
+
+    }
 }
