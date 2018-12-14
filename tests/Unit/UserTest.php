@@ -33,4 +33,16 @@ class UserTest extends TestCase
         $user = factory(\App\User::class)->make();
         $this->assertTrue(is_object($user->profile()->get()));
     }
+
+    public function testLoginWithValidCredentials()
+    {
+        $user = factory(\App\User::class)->create([
+            'password' => bcrypt($password = '111111'),
+        ]);
+        $response = $this->post('/login', [
+            'email' => $user->email,
+            'password' => $password,
+        ]);
+        $response->assertRedirect('/home');
+    }
 }
