@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\User;
 
 class UserTest extends TestCase
 {
@@ -56,8 +57,13 @@ class UserTest extends TestCase
             'email' => $user->email,
             'password' => 'random',
         ]);
-
+        $response->assertRedirect('/login');
         $response->assertSessionHasErrors('email');
 
+    }
+
+    public function testTokenDatatype(){
+        $user = User::inRandomOrder()->first();
+        $this->assertInternalType('string',$user->token);
     }
 }
