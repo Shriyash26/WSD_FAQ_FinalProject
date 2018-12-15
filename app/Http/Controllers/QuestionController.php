@@ -76,8 +76,8 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        $edit = TRUE;
-        return view('questionForm', ['question' => $question, 'edit' => $edit ]);
+            $edit = TRUE;
+            return view('questionForm', ['question' => $question, 'edit' => $edit]);
     }
 
     /**
