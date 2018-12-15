@@ -40,6 +40,7 @@ class loginAuthTest extends DuskTestCase
                 ->press('Register');
 
         });
+        // to update db when user clicks on verfification link
         $user = User::where('email','shriyashmahajan@gmail.com')->first();
         $this->browse(function ($browser) use ($user) {
             $userToken= $user->token;
@@ -47,6 +48,14 @@ class loginAuthTest extends DuskTestCase
             ->assertPathIs('/login');
         });
 
+        // to test if user is able to login with verified email id
+        $this->browse(function ($browser) use ($user) {
+            $browser->visit('/login')
+                ->type('email', $user->email)
+                ->type('password', 'secret')
+                ->press('Login')
+                ->assertPathIs('/home');
+        });
         $user->delete();
     }
 }
