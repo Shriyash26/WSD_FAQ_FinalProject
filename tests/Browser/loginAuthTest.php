@@ -29,4 +29,24 @@ class loginAuthTest extends DuskTestCase
         });
         $user->delete();
     }
+
+    public function testUserRegisteration(){
+
+        $this->browse(function ($browser)  {
+            $browser->visit('/register')
+                ->type('email', 'shriyashmahajan@gmail.com')
+                ->type('password', 'secret')
+                ->type('password_confirmation', 'secret')
+                ->press('Register');
+
+        });
+        $user = User::where('email','shriyashmahajan@gmail.com')->first();
+        $this->browse(function ($browser) use ($user) {
+            $userToken= $user->token;
+            $browser->visit(url('user/verify', $userToken))
+            ->assertPathIs('/login');
+        });
+
+        $user->delete();
+    }
 }
