@@ -80,8 +80,10 @@ class AnswerController extends Controller
     public function edit($question,  $answer)
     {
         $answer = Answer::find($answer);
-        $edit = TRUE;
-        return view('answerForm', ['answer' => $answer, 'edit' => $edit, 'question'=>$question ]);
+        if ((int)($answer->user_id) == Auth::user()->id) {
+            $edit = TRUE;
+            return view('answerForm', ['answer' => $answer, 'edit' => $edit, 'question' => $question]);
+        }
     }
 
     /**
