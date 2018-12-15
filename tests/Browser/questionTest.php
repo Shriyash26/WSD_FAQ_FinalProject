@@ -33,11 +33,23 @@ class questionTest extends DuskTestCase
             $browser->visit('/home')
                 ->clickLink('Create a Question')
                 ->assertPathIs('/question/create')
-                ->type('body', 'user Question1')
+                ->type('body', 'New question created')
                 ->press('Save')
                 ->assertPathIs('/home');
         });
-        Question::where('user_id',($user->id))->delete();
+
+        $question = Question::where('user_id',($user->id))->first();
+        $this->browse(function ($browser) use ($user, $question) {
+            $question_id = $question->id;
+            $browser->visit('/home')
+                ->clickLink('View')
+                ->clickLink('Edit Question')
+                ->type('body', 'New question edited')
+                ->press('Save')
+                ->assertRouteIs('question.show', ['id' => $question_id]);
+        });
+
+        $question->delete();
         $user->delete();
 
     }
