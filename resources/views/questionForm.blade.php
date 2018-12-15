@@ -13,7 +13,7 @@
                             {!! Form::model($question, ['route' => ['question.update', $question->id], 'method' => 'patch']) !!}
                         @endif
                         <div class="form-group">
-                            {!! Form::label('body', 'Body') !!}
+                            {!! Form::label('body', 'Write your question') !!}
                             {!! Form::text('body', $question->body, ['class' => 'form-control','required' => 'required']) !!}
                         </div>
                         <button class="btn btn-success float-right" value="submit" type="submit" id="submit">Save

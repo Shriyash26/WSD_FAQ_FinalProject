@@ -14,7 +14,7 @@
                             {!! Form::model($answer, ['route' => ['answer.update', $question, $answer], 'method' => 'patch']) !!}
                         @endif
                         <div class="form-group">
-                            {!! Form::label('body', 'Body') !!}
+                            {!! Form::label('body', 'Write your answer below') !!}
                             {!! Form::text('body', $answer->body, ['class' => 'form-control','required' => 'required']) !!}
                         </div>
                         <button class="btn btn-success float-right" value="submit" type="submit" id="submit">Save

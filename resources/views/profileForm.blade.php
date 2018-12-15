@@ -21,7 +21,7 @@
                             {!! Form::text('lname', $profile->lname, ['class' => 'form-control','required' => 'required']) !!}
                         </div>
                         <div class="form-group">
-                            {!! Form::label('body', 'Body') !!}
+                            {!! Form::label('body', 'Information') !!}
                             {!! Form::text('body', $profile->body, ['class' => 'form-control','required' => 'required']) !!}
                         </div>
                         <button class="btn btn-success float-right" value="submit" type="submit" id="submit">Save

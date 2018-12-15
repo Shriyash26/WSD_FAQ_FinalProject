@@ -14,21 +14,21 @@
 
                             <div class="card-deck">
                                 @forelse($questions as $question)
-                                    <div class="col-sm-4 d-flex align-items-stretch">
+                                    <div class="col-sm-6 d-flex align-items-stretch">
                                         <div class="card mb-3 ">
                                             <div class="card-header">
-                                                <small class="text-muted">
-                                                    Updated: {{ $question->created_at->diffForHumans() }}
-                                                    Answers: {{ $question->answers()->count() }}
-
+                                                <small class="text-muted float-left">
+                                                    Updated: {{ $question->updated_at->diffForHumans() }}
                                                 </small>
+                                                <small class="float-right">Answers: {{ $question->answers()->count() }}</small>
                                             </div>
-                                            <div class="card-body">
+                                            <div class="card-body p-4">
                                                 <p class="card-text">{{$question->body}}</p>
                                             </div>
                                             <div class="card-footer">
-                                                <p class="card-text">
 
+                                                <p class="card-text">
+                                                    <small class="text-muted float-left">Question by: {{\App\User::find($question->user_id)->email}}</small>
                                                     <a class="btn btn-primary float-right" href="{{ route('question.show', ['id' => $question->id]) }}">
                                                         View
                                                     </a>
