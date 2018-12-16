@@ -33,6 +33,7 @@
     - ##### To run dusk tests, local server should be ON, as it requires broweser to perform tests.
     - ##### Please follow instructions on [https://laravel.com/docs/5.7/dusk] to install and configure system for dusk testing.
     - ##### To run and test email verification locally, use sendgrid or mailtrap account details. You need to update .env file with valid sendgrid or mailtrap credentials.
+    - ##### Check spam folder for email verification mail if it does not appear in inbox.
     - ##### **[IMPORTANT] Sendgrid may suspend user account abruptly, which will prevent user from getting any email verification mail. This issue may happen with Heroku project. Please let me know if you face such issue, I will have to contact sendgrid support to activate account again.**
     
 ##
