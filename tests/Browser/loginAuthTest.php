@@ -30,32 +30,32 @@ class loginAuthTest extends DuskTestCase
         $user->delete();
     }
 
-//    public function testUserRegisteration(){
-//
-//        $this->browse(function ($browser)  {
-//            $browser->visit('/register')
-//                ->type('email', 'shriyashmahajan@gmail.com')
-//                ->type('password', 'secret')
-//                ->type('password_confirmation', 'secret')
-//                ->press('Register');
-//
-//        });
-//        // to update db when user clicks on verfification link
-//        $user = User::where('email','shriyashmahajan@gmail.com')->first();
-//        $this->browse(function ($browser) use ($user) {
-//            $userToken= $user->token;
-//            $browser->visit(url('user/verify', $userToken))
-//            ->assertPathIs('/login');
-//        });
-//
-//        // to test if user is able to login with verified email id
-//        $this->browse(function ($browser) use ($user) {
-//            $browser->visit('/login')
-//                ->type('email', $user->email)
-//                ->type('password', 'secret')
-//                ->press('Login')
-//                ->assertPathIs('/home');
-//        });
-//        $user->delete();
-//    }
+    public function testUserRegisteration(){
+
+        $this->browse(function ($browser)  {
+            $browser->visit('/register')
+                ->type('email', 'shriyashmahajan+1000@gmail.com')
+                ->type('password', 'secret')
+                ->type('password_confirmation', 'secret')
+                ->press('Register');
+
+        });
+        // to update db when user clicks on verfification link
+        $user = User::where('email','shriyashmahajan+1000@gmail.com')->first();
+        $this->browse(function ($browser) use ($user) {
+            $userToken= $user->token;
+            $browser->visit(url('user/verify', $userToken))
+            ->assertPathIs('/login');
+        });
+
+        // to test if user is able to login with verified email id
+        $this->browse(function ($browser) use ($user) {
+            $browser->visit('/login')
+                ->type('email', $user->email)
+                ->type('password', 'secret')
+                ->press('Login')
+                ->assertPathIs('/home');
+        });
+        $user->delete();
+    }
 }
