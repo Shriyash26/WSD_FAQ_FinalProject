@@ -18,6 +18,7 @@ class questionTest extends DuskTestCase
      */
     public function testpostNewQuestion(){
 
+
         $user = factory(User::class)->make([
             'email' => 'testuser@question.com',
         ]);
@@ -29,6 +30,7 @@ class questionTest extends DuskTestCase
                 ->press('Login')
                 ->assertPathIs('/home');
         });
+        //test to create new question
         $this->browse(function ($browser) use ($user) {
             $browser->visit('/home')
                 ->clickLink('Create a Question')
@@ -37,8 +39,9 @@ class questionTest extends DuskTestCase
                 ->press('Save')
                 ->assertPathIs('/home');
         });
-
+        //test to edit question
         $question = Question::where('user_id',($user->id))->first();
+
         $this->browse(function ($browser) use ($user, $question) {
             $question_id = $question->id;
             $browser->visit('/home')
@@ -48,9 +51,16 @@ class questionTest extends DuskTestCase
                 ->press('Save')
                 ->assertRouteIs('question.show', ['id' => $question_id]);
         });
+        //test to delete user question
+        $this->browse(function ($browser) use ($user, $question) {
+            $browser->visit('/home')
+                ->clickLink('View')
+                ->press('Delete')
+                ->assertPathIs('/home');
+        });
 
-        $question->delete();
         $user->delete();
+        $this->artisan('migrate:refresh');
 
     }
 }
