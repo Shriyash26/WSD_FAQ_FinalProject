@@ -65,7 +65,5 @@ class UserTest extends TestCase
     public function testTokenDatatype(){
         $user = User::inRandomOrder()->first();
         $this->assertInternalType('string',$user->token);
-//        $this->artisan('migrate:refresh');
-
     }
 }
