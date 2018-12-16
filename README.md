@@ -12,7 +12,7 @@
 1. After successful login to the system, user should be able to view all questions and answers.
 2. User should be able to create a new question.
 3. User should be able to edit or delete questions created only by him/her.
-4. User should be able to see email-id of question, answer owener and time of last update.
+4. User should be able to see email-id of question, answer owner and time of last update.
 5. User should be able answer questions posted on FAQ.
 6. User should be able to edit or delete answers posted only by him/her.
 
