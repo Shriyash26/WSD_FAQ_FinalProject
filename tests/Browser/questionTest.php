@@ -63,4 +63,50 @@ class questionTest extends DuskTestCase
 //        $this->artisan('migrate:refresh');
 
     }
+
+    public function testOnlyOwnerCanEditOrDeleteQuestion(){
+
+        $NewUser1 = factory(User::class)->make([
+
+            'email' => 'UserOne@ques.com',
+        ]);
+
+        $NewUser1->save();
+
+        $NewUser2 = factory(User::class)->make([
+
+            'email' => 'UserTwo@ques.com',
+        ]);
+        $NewUser2->save();
+
+        $this->browse(function ($browser) use ($NewUser1, $NewUser2) {
+            $browser->visit('/login')
+                ->type('email', $NewUser1->email)
+                ->type('password', 'secret')
+                ->press('Login')
+                ->assertPathIs('/home')
+                ->clickLink('Create a Question')
+                ->assertPathIs('/question/create')
+                ->type('body', 'New Question with NewUser1 created')
+                ->press('Save')
+                ->assertPathIs('/home')
+                ->clickLink('My Account')
+                ->clickLink('Logout')
+                ->assertPathIs('/')
+                ->clickLink('Login')
+                ->type('email', $NewUser2->email)
+                ->type('password', 'secret')
+                ->press('Login')
+                ->assertPathIs('/home')
+                ->clickLink('View')
+                ->assertDontSee('Edit Question')
+                ->assertDontSee('Delete');
+        });
+
+        Question::where('user_id',($NewUser1->id))->first()->delete();
+        $NewUser1->delete();
+        $NewUser2->delete();
+
+    }
+
 }
