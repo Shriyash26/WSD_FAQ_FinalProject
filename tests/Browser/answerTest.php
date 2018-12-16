@@ -37,12 +37,22 @@ class answerTest extends DuskTestCase
                 ->clickLink('Answer Question')
                 ->type('body', 'Answer given to New question')
                 ->press('Save')
-                ->assertSee("Saved");
+                ->assertSee("Saved")
+                ->clickLink('View')       // Edit answer
+                ->clickLink('Edit Answer')
+                ->type('body', 'Answer to new Question updated')
+                ->press('Save')
+                ->assertSee("Updated")
+                ->press('Delete')       // delete answer
+                ->assertSee("Delete");
         });
+
+
         $question = Question::where('user_id',($user->id))->first();
-        Answer::where('question_id',($question->id))->delete();
         $question->delete();
         $user->delete();
+        $this->artisan('migrate:refresh');
+
 
     }
 }
